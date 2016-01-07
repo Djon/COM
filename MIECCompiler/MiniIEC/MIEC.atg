@@ -1,0 +1,75 @@
+#include "SymbolTable.h"
+#include "SymbolFactory.h"
+//#include "Type.h"
+//#include "VarSymbol.h"
+
+COMPILER MIEC
+
+/*--------------------------------------------------------------------------*/
+CHARACTERS
+  letter = 'A' .. 'Z' + 'a' .. 'z' .
+  digit = '0' .. '9' .
+  cr = '\r' .
+  lf = '\n' .
+  tab = '\t' .
+
+    
+TOKENS
+  ident = letter { letter | digit } .
+  number = digit {digit} .
+    
+COMMENTS
+  FROM "(*" TO "*)" NESTED
+
+IGNORE cr + lf + tab
+   
+PRODUCTIONS
+
+MIEC = "PROGRAM" ident 
+	   [ VarDeclList ]
+	   "BEGIN"
+	   Statements
+	   "END" .
+
+VarDeclList = "BEGIN_VAR"						(. size_t addr = 0; SymbolTable::GetInstance().AddTypeSymbol(INT); .)
+		   VarDecl<addr>
+		 { VarDecl<addr>
+		 } 
+		   "END_VAR"
+		 .
+
+VarDecl<size_t &addr>					(. wchar_t* name = 0; DataType * pType = 0; .)
+	= Ident<name>
+	  ":"
+	  Type<pType>
+	  ";"								(. if (SymbolTable::GetInstance().Add(new VarSymbol(name, pType, addr))) { addr += pType->GetSize(); } .)
+	.
+
+
+Statements = Stat {Stat} .
+Stat = ident ":=" Expr ";"
+     | "print" "(" Expr ")" ";"
+	 | "WHILE" Condition "DO" Statements "END"
+	 | "IF" Condition "THEN" Statements ("END" | "ELSE" Statements "END") .
+
+Expr = Term { ("+" | "-") Term } .
+
+Term = Fact { ("*" | "/") Fact } .
+
+Fact = ident | number | "(" Expr ")" .
+
+Condition = Expr Relop Expr .
+
+Relop = "=" | "<=" | ">=" | "!=" | "<" | ">" .
+
+Type<DataType* &pType>
+	= ( "Integer" )		(. pType = SymbolTable::GetInstance().Find(INT_NAME)->GetType(); .)  
+	.
+
+Ident<wchar_t* &name>
+	= ( ident			(. name =  t->val; .)
+	| number
+	  )
+	.
+
+END MIEC .

@@ -1,0 +1,15 @@
+PROGRAM TEST1
+	BEGIN_VAR
+		a: Integer;
+		b: Integer;
+		max : Integer;
+	END_VAR
+BEGIN
+	a := 3;
+	b := 5;
+	IF a > b THEN
+		max := a;
+	ELSE
+		max := b;
+	END
+END

@@ -1,0 +1,8 @@
+PROGRAM TEST
+BEGIN
+	abc1 := 1;
+	print(3+3);
+	WHILE 123 <= 1234 DO abc1 := 2; END
+	IF 123 <= 1234 THEN abc1 := 2; END
+	IF 123 <= 1234 THEN abc1 := 2; ELSE abcd := 3; END
+END
