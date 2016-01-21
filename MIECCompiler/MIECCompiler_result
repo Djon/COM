@@ -16,3 +16,37 @@ MiniIEC.exe
 Test.miec: OK
 MiniIEC.exe
 Test1.miec: OK
+MiniIEC.exe
+MiniIEC\MIEC.atg: FAILED: 1 error(s) detected
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK
+MiniIEC.exe
+Test1.miec: OK

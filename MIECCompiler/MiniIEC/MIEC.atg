@@ -3,6 +3,7 @@
 //#include "Type.h"
 //#include "VarSymbol.h"
 
+
 COMPILER MIEC
 
 /*--------------------------------------------------------------------------*/
@@ -29,9 +30,10 @@ MIEC = "PROGRAM" ident
 	   [ VarDeclList ]
 	   "BEGIN"
 	   Statements
-	   "END" .
+	   "END"									
+	   .
 
-VarDeclList = "BEGIN_VAR"						(. size_t addr = 0; SymbolTable::GetInstance().AddTypeSymbol(INT); .)
+VarDeclList = "BEGIN_VAR"						(. size_t addr = 0; SymbolTable::GetInstance().AddTypeSymbol(INT); SymbolTable::GetInstance().AddTypeSymbol(BOOLEAN); .)
 		   VarDecl<addr>
 		 { VarDecl<addr>
 		 } 
@@ -63,7 +65,9 @@ Condition = Expr Relop Expr .
 Relop = "=" | "<=" | ">=" | "!=" | "<" | ">" .
 
 Type<DataType* &pType>
-	= ( "Integer" )		(. pType = SymbolTable::GetInstance().Find(INT_NAME)->GetType(); .)  
+	= ( "Integer"		(. pType = SymbolTable::GetInstance().Find(INT_NAME)->GetDataType(); .) 
+	| "Boolean"			(. pType = SymbolTable::GetInstance().Find(BOOLEAN_NAME)->GetDataType(); .) 
+	)		 
 	.
 
 Ident<wchar_t* &name>

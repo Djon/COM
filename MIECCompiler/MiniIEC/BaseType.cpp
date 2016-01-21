@@ -15,6 +15,9 @@ size_t BaseType::TypeToSize(BaseTypeName const baseTypeName) {
 	case CHAR:
 		return CHAR_SIZE;
 		break;
+	case BOOLEAN:
+		return BOOLEAN_SIZE;
+		break;
 	default:
 		throw new std::string("Type not allowed.");
 		break;

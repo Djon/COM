@@ -1,7 +1,10 @@
 PROGRAM TEST1
 	BEGIN_VAR
 		a: Integer;
+		a: Integer;
 		b: Integer;
+		b: Integer;
+		isTest : Boolean;
 		max : Integer;
 	END_VAR
 BEGIN

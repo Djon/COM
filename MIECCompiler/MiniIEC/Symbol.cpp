@@ -1,14 +1,19 @@
 #include "Symbol.h"
 
-Symbol::Symbol(wchar_t* const name, DataType * pType) {
+Symbol::Symbol(SymbolType symbolType, wchar_t* const name, DataType * pType) {
 	mName = name;
-	mpType = pType;
+	mpDataType = pType;
+	mSymbolType = symbolType;
 }
 
 wchar_t* Symbol::GetName() {
 	return mName;
 }
 
-DataType * Symbol::GetType() {
-	return mpType;
+DataType * Symbol::GetDataType() {
+	return mpDataType;
+}
+
+SymbolType Symbol::GetSymbolType() const {
+	return mSymbolType;
 }

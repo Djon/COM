@@ -7,7 +7,6 @@ enum OpKind {
 	eAdd, eSubtract, eMultiply, eDivide, eIsEqual, eIsLessEqual, eIsGreaterEqual,
 	eIsNotEqual, eIsLess, eIsGreater, eAssign, eJump, eIfJump, eIfFalseJump, ePrint,
 	eExit
-
 };
 
 class DACEntry : public Object {

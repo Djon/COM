@@ -1,6 +1,6 @@
 #include "ConstIntSymbol.h"
 
-ConstIntSymbol::ConstIntSymbol(wchar_t* const name, DataType * pType, int const value) : Symbol(name, pType) {
+ConstIntSymbol::ConstIntSymbol(wchar_t* const name, DataType * pType, int const value) : Symbol(SymbolType::eVar, name, pType) {
 	mValue = value;
 }
 

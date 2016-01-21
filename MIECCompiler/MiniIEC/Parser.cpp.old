@@ -75,7 +75,7 @@ void Parser::MIEC() {
 
 void Parser::VarDeclList() {
 		Expect(6);
-		size_t addr = 0; SymbolTable::GetInstance().AddTypeSymbol(INT); 
+		size_t addr = 0; SymbolTable::GetInstance().AddTypeSymbol(INT); SymbolTable::GetInstance().AddTypeSymbol(BOOLEAN); 
 		VarDecl(addr);
 		while (la->kind == 1 || la->kind == 2) {
 			VarDecl(addr);
@@ -105,12 +105,17 @@ void Parser::Ident(wchar_t* &name) {
 			name =  t->val; 
 		} else if (la->kind == 2) {
 			Get();
-		} else SynErr(31);
+		} else SynErr(32);
 }
 
 void Parser::Type(DataType* &pType) {
-		Expect(29);
-		pType = SymbolTable::GetInstance().Find(INT_NAME)->GetType(); 
+		if (la->kind == 29) {
+			Get();
+			pType = SymbolTable::GetInstance().Find(INT_NAME)->GetType(); 
+		} else if (la->kind == 30) {
+			Get();
+			pType = SymbolTable::GetInstance().Find(BOOLEAN_NAME)->GetType(); 
+		} else SynErr(33);
 }
 
 void Parser::Stat() {
@@ -142,8 +147,8 @@ void Parser::Stat() {
 				Get();
 				Statements();
 				Expect(5);
-			} else SynErr(32);
-		} else SynErr(33);
+			} else SynErr(34);
+		} else SynErr(35);
 }
 
 void Parser::Expr() {
@@ -185,7 +190,7 @@ void Parser::Fact() {
 			Get();
 			Expr();
 			Expect(13);
-		} else SynErr(34);
+		} else SynErr(36);
 }
 
 void Parser::Relop() {
@@ -214,7 +219,7 @@ void Parser::Relop() {
 			Get();
 			break;
 		}
-		default: SynErr(35); break;
+		default: SynErr(37); break;
 		}
 }
 
@@ -231,7 +236,7 @@ void Parser::Parse() {
 }
 
 Parser::Parser(Scanner *scanner) {
-	maxT = 30;
+	maxT = 31;
 
 	dummyToken = NULL;
 	t = la = NULL;
@@ -245,9 +250,9 @@ bool Parser::StartOf(int s) {
 	const bool T = true;
 	const bool x = false;
 
-	static bool set[2][32] = {
-		{T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x},
-		{x,T,x,x, x,x,x,x, x,x,x,T, x,x,T,x, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x}
+	static bool set[2][33] = {
+		{T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x},
+		{x,T,x,x, x,x,x,x, x,x,x,T, x,x,T,x, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x}
 	};
 
 
@@ -297,12 +302,14 @@ void Errors::SynErr(int line, int col, int n) {
 			case 27: s = coco_string_create(L"\"<\" expected"); break;
 			case 28: s = coco_string_create(L"\">\" expected"); break;
 			case 29: s = coco_string_create(L"\"Integer\" expected"); break;
-			case 30: s = coco_string_create(L"??? expected"); break;
-			case 31: s = coco_string_create(L"invalid Ident"); break;
-			case 32: s = coco_string_create(L"invalid Stat"); break;
-			case 33: s = coco_string_create(L"invalid Stat"); break;
-			case 34: s = coco_string_create(L"invalid Fact"); break;
-			case 35: s = coco_string_create(L"invalid Relop"); break;
+			case 30: s = coco_string_create(L"\"Boolean\" expected"); break;
+			case 31: s = coco_string_create(L"??? expected"); break;
+			case 32: s = coco_string_create(L"invalid Ident"); break;
+			case 33: s = coco_string_create(L"invalid Type"); break;
+			case 34: s = coco_string_create(L"invalid Stat"); break;
+			case 35: s = coco_string_create(L"invalid Stat"); break;
+			case 36: s = coco_string_create(L"invalid Fact"); break;
+			case 37: s = coco_string_create(L"invalid Relop"); break;
 
 		default:
 		{

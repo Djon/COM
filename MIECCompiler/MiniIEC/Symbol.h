@@ -6,15 +6,21 @@
 
 class DataType;
 
+typedef enum { eType, eVar, eTempVar, eLabel } SymbolType;
+
 class Symbol : public Object {
+
 public:
-	Symbol(wchar_t* const name, DataType * pType);
+	Symbol(SymbolType symbolType, wchar_t* const name, DataType * pType);
+
 	wchar_t* GetName();
-	DataType * GetType();
+	DataType * GetDataType();
+	SymbolType Symbol::GetSymbolType() const;
 
 private:
 	wchar_t* mName;
-	DataType * mpType;
+	DataType * mpDataType;
+	SymbolType mSymbolType;
 };
 
 #endif
