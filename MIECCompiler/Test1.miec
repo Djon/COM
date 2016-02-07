@@ -1,18 +1,15 @@
 PROGRAM TEST1
 	BEGIN_VAR
 		a: Integer;
-		a: Integer;
 		b: Integer;
-		b: Integer;
-		isTest : Boolean;
-		max : Integer;
 	END_VAR
 BEGIN
-	a := 3;
-	b := 5;
-	IF a > b THEN
-		max := a;
-	ELSE
-		max := b;
+	a := 0;
+	b := 10;
+	
+	WHILE a + 1 <= b DO
+		print(a);
+		a := a + 2;
 	END
+
 END

@@ -20,14 +20,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -83,6 +83,7 @@
     <ClCompile Include="MiniIEC\ConstIntSymbol.cpp" />
     <ClCompile Include="MiniIEC\DACEntry.cpp" />
     <ClCompile Include="MiniIEC\DACGenerator.cpp" />
+    <ClCompile Include="MiniIEC\Label.cpp" />
     <ClCompile Include="MiniIEC\main.cpp" />
     <ClCompile Include="MiniIEC\Object.cpp" />
     <ClCompile Include="MiniIEC\Parser.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="MiniIEC\ConstIntSymbol.h" />
     <ClInclude Include="MiniIEC\DACEntry.h" />
     <ClInclude Include="MiniIEC\DACGenerator.h" />
+    <ClInclude Include="MiniIEC\Label.h" />
     <ClInclude Include="MiniIEC\Object.h" />
     <ClInclude Include="MiniIEC\Parser.h" />
     <ClInclude Include="MiniIEC\Scanner.h" />
@@ -119,7 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Hello.miec" />
-    <None Include="Test.miec" />
+    <None Include="MiniIEC\Branch.miec" />
+    <None Include="MiniIEC\Loop.miec" />
     <None Include="Test1.miec" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

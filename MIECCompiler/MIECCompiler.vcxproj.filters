@@ -57,6 +57,9 @@
     <ClCompile Include="MiniIEC\DACEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MiniIEC\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniIEC\Parser.h">
@@ -101,15 +104,21 @@
     <ClInclude Include="MiniIEC\DACEntry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MiniIEC\Label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Test1.miec">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Hello.miec">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Test.miec">
+    <None Include="Test1.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MiniIEC\Branch.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MiniIEC\Loop.miec">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

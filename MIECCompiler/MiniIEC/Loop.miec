@@ -1,0 +1,15 @@
+PROGRAM LoopTest
+BEGIN_VAR
+	a: Integer;
+	b: Integer;
+END_VAR
+BEGIN
+	a := 0;
+	b := 10;
+	
+	WHILE a <= b DO
+		a := a + 1;
+		print(a);
+	END
+	
+END

@@ -3,8 +3,9 @@
 #if !defined(COCO_PARSER_H__)
 #define COCO_PARSER_H__
 
-#include "SymbolTable.h"
+#include "DACGenerator.h"
 #include "SymbolFactory.h"
+#include <wchar.h>
 
 
 #include "Scanner.h"
@@ -52,6 +53,12 @@ public:
 	Token *t;			// last recognized token
 	Token *la;			// lookahead token
 
+DACGenerator mDACGen;
+
+	void Error(wchar_t* const msg) {
+		errors->Error(la->line, la->col, msg);
+	}
+
 
 
 	Parser(Scanner *scanner);
@@ -65,11 +72,15 @@ public:
 	void Ident(wchar_t* &name);
 	void Type(DataType* &pType);
 	void Stat();
-	void Expr();
-	void Condition();
-	void Term();
-	void Fact();
-	void Relop();
+	void Assignment(Symbol* &pSym);
+	void Branch(Symbol* &pSym);
+	void Loop(Symbol* &pSym);
+	void Print(Symbol* &pSym);
+	void Expr(Symbol* &pSym);
+	void Condition(Symbol* &pSym);
+	void Relop(OpKind &op);
+	void Term(Symbol* &pSym);
+	void Fact(Symbol* &pSym);
 
 	void Parse();
 

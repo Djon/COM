@@ -6,7 +6,7 @@
 
 class DataType;
 
-typedef enum { eType, eVar, eTempVar, eLabel } SymbolType;
+typedef enum { eType, eVar, eTempVar, eLabel, eConst } SymbolType;
 
 class Symbol : public Object {
 

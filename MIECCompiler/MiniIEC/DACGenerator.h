@@ -2,35 +2,52 @@
 #define DACGENERATOR_H
 
 #include <list>
-#include "Parser.h"
 #include "DACEntry.h"
 #include "Symbol.h"
-#include "SingletonBase.h"
+#include "SymbolTable.h"
 
-class DACGenerator : public SingletonBase < DACGenerator > {
-	friend class SingletonBase < DACGenerator > ;
+namespace MIEC {
+
+class Parser;
+
+class DACGenerator {
 public:
+	DACGenerator();
 
-	bool SetParser(MIEC::Parser * pParser);
+	bool SetParser(Parser * pParser);
 	
 	DACEntry * AddStatement(OpKind opKind, Symbol * sym);
 	DACEntry * AddStatement(OpKind opKind, Symbol * sym1, Symbol * sym2);
+	
+	Label* const CreateLabel();
+	Label* const RegisterLabel(Label * pLabel);
 
 	const std::list<DACEntry*>& GetDACList() const;
-	void PrintDACList(std::wostream& out) const;
+	void PrintDACList() const;
+	void PrintSymTab() const;
 
-	void DACGenerator::Error(wchar_t * msg);
+	void DACGenerator::Error(std::string msg);
+	void SetPosition(size_t const line);
+
+	Symbol * AddSymbol(Symbol * pSymbol);
+	Symbol * FindSymbol(wchar_t* const name);
+	Symbol * AddTypeSymbol(BaseTypeName baseTypeName);
+	DataType* GetDataType(wchar_t* const pName);
 
 private:
-	DACGenerator();
-	~DACGenerator();
-
 	std::list<DACEntry*> mDACEntries;
 
-	MIEC::Parser * mpParser;
+	Parser * mpParser;
+	SymbolTable mSymbolTable;
 
-	size_t mTempLabelnumber;	// counter for temporary label number
-
+	Label * mCurrentLabel;
+	size_t mTempVarCount;		// auto incrementing value for temporary variable name creation
+	size_t mLabelCount;			// auto incrementing value for label generation
+	
+	size_t mLine;				// the current line we are at
+	size_t mErrorCount;			// number of found errors
 };
+
+} // namespace MIEC
 
 #endif

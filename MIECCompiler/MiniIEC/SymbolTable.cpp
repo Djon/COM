@@ -26,7 +26,7 @@ void SymbolTable::Reset() {
 	mSymbols.clear();
 }
 
-bool SymbolTable::AddTypeSymbol(BaseTypeName baseTypeName) {
+Symbol * SymbolTable::AddTypeSymbol(BaseTypeName baseTypeName) {
 	DataType * dataType = 0;
 	TypeSymbol * symbol = 0;
 
@@ -53,7 +53,7 @@ bool SymbolTable::AddTypeSymbol(BaseTypeName baseTypeName) {
 	}
 }
 
-bool SymbolTable::Add(Symbol * pSymbol) {
+Symbol * SymbolTable::Add(Symbol * pSymbol) {
 	if (pSymbol != NULL) {
 
 		auto result = mSymbols.insert(tSymbolEntry(pSymbol->GetName(), pSymbol));
@@ -66,16 +66,10 @@ bool SymbolTable::Add(Symbol * pSymbol) {
 				pSymbol = result.first->second;
 			}
 
-			std::wstring wname = std::wstring(pSymbol->GetName());
-			std::string name = std::string(wname.begin(), wname.end());
-
-			std::cout << "Symbol " << name << " already defined" << std::endl;
-
-			return false;
+			return 0;
 		}
-		return true;
 	}
-	return false;
+	return pSymbol;
 }
 
 Symbol * SymbolTable::Find(wchar_t* const name) {
@@ -105,16 +99,42 @@ DataType* const SymbolTable::GetDataType(wchar_t* const pName)
 }
 
 #ifdef _DEBUG
-void SymbolTable::Print() {
+void SymbolTable::Print() const {
 	std::for_each(mSymbols.begin(), mSymbols.end(), [](std::pair<wchar_t*, Symbol*> pair)
 	{
 		std::wstring wname = std::wstring(pair.first);
 		std::string name = std::string(wname.begin(), wname.end());
 		
-		std::wstring wtype = std::wstring(pair.second->GetDataType()->GetName());
-		std::string type = std::string(wtype.begin(), wtype.end());
+		std::string type = "None";
 
-		std::cout << "Name: " << name << ", Type: " << type << std::endl;
+		if (pair.second->GetDataType() != 0)
+		{
+			std::wstring wtype = std::wstring(pair.second->GetDataType()->GetName());
+			type = std::string(wtype.begin(), wtype.end());
+		}
+		
+		std::string symType = "Unknown";
+
+		switch (pair.second->GetSymbolType())
+		{
+		case eType:
+			symType = "Type";
+			break;
+		case eVar:
+			symType = "Variable";
+			break;
+		case eTempVar:
+			symType = "Temp Variable";
+			break;
+		case eLabel:
+			symType = "Label";
+			break;
+		case eConst:
+			symType = "Const";
+			break;
+		}
+
+		std::cout << "Name: " << name << ", DataType: " << type << ", SymbolType: " << symType << std::endl;
 	});
 }
 #endif

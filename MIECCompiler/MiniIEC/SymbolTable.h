@@ -8,8 +8,7 @@
 #include "Scanner.h"
 
 
-class SymbolTable : public SingletonBase<SymbolTable> {
-	friend class SingletonBase<SymbolTable>;
+class SymbolTable {
 
 public:
 
@@ -20,21 +19,22 @@ public:
 		}
 	};
 
+	SymbolTable();
 	virtual ~SymbolTable();
 	void Reset();
-	bool Add(Symbol * pSymbol);
+	Symbol * Add(Symbol * pSymbol);
 	Symbol * Find(wchar_t* const name);
-	bool AddTypeSymbol(BaseTypeName baseTypeName);
+	Symbol * AddTypeSymbol(BaseTypeName baseTypeName);
 
 	DataType* const SymbolTable::GetDataType(wchar_t* const pName);
 
 #ifdef _DEBUG
-	void Print();
+	void Print() const;
 #endif
 
 private:
 
-	SymbolTable();
+	
 	typedef std::pair<wchar_t*, Symbol*> tSymbolEntry;
 	std::map<wchar_t*, Symbol*, NameCompare> mSymbols;
 };
