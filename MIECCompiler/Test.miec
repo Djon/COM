@@ -1,12 +1,19 @@
 PROGRAM TEST
 	BEGIN_VAR
-		abc1: Integer;
-		abcd: Integer;
+		a1: Integer;
+		a2: Integer;
 	END_VAR
 BEGIN
-	abc1 := 1;
 	print(3+3);
-	WHILE 123 <= 1234 DO abc1 := 2; END
-	IF 123 <= 1234 THEN abc1 := 2; END
-	IF 123 <= 1234 THEN abc1 := 2; ELSE abcd := 3; END
+	a1 := 0;
+	a2 := 10;
+
+	IF a1 < a2 THEN
+		WHILE a1 < a2 DO
+			print(a1);
+			a1 := a1 + 1;
+		END
+	END
+	print(a1);
+	print(a2);
 END

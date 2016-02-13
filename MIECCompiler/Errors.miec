@@ -1,0 +1,11 @@
+PROGRAM Errors
+	BEGIN_VAR
+		a1: Integer;
+		a2: Integer;
+	END_VAR
+BEGIN
+	IF a1 := a2 THEN ELSE END
+	print
+	IF a1 < a2 THEN a1 < a2 END
+	WHILE print(a1) DO hello END
+END

@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 			size_t const parserErrors = parser->errors->count;
 			size_t const semanticErrors = parser->mDACGen.GetErrorCount();
 			cout << "Parser Errors: " << parserErrors << endl;
-			cout << "Sematic Errors: " << semanticErrors << endl;
+			cout << "Semantic Errors: " << semanticErrors << endl;
 
 			// write to log file
 			myfile << "MiniIEC.exe" << endl << argv[i] << ": ";

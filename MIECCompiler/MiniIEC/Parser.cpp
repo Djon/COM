@@ -159,7 +159,7 @@ void Parser::Branch(Symbol* &pSym) {
 		Statements();
 		if (la->kind == 13) {
 			Get();
-			mDACGen.AddStatement(OpKind::eJump, lbNext, 0); 
+			mDACGen.AddStatement(OpKind::eJump, lbNext, 0); mDACGen.RegisterLabel(lbElse); 
 			Statements();
 			mDACGen.RegisterLabel(lbNext); 
 		}

@@ -73,7 +73,7 @@ Branch<Symbol* &pSym>					(. Label* lbElse = mDACGen.CreateLabel(); Label* lbNex
 	"THEN"								(. mDACGen.AddStatement(OpKind::eIfFalseJump, pSym, lbElse); .)
 	Statements
 [ 
-	"ELSE"								(. mDACGen.AddStatement(OpKind::eJump, lbNext, 0); .)
+	"ELSE"								(. mDACGen.AddStatement(OpKind::eJump, lbNext, 0); mDACGen.RegisterLabel(lbElse); .)
 	Statements							(. mDACGen.RegisterLabel(lbNext); .)					
 ] 
 	SYNC "END"							(. mDACGen.RegisterLabel(lbElse); .)							

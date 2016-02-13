@@ -33,47 +33,46 @@ DACEntry * DACGenerator::AddStatement(OpKind opKind, Symbol * sym1, Symbol * sym
 		return nullptr;
 	}
 
-	size_t errorCount = 0;				// local error counter
 	DataType* pDataType = 0;	// unknown DataType;
 
 	switch (opKind)
 	{
 	case OpKind::eAssign:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
-		if (sym1->GetSymbolType() != SymbolType::eVar) { Error("AddStatement: invalid assignment (Variable expected)"); errorCount++; break; }
-		if (sym2 == 0) { Error("Invalid right parameter"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
+		if (sym1->GetSymbolType() != SymbolType::eVar) { Error("AddStatement: invalid assignment (Variable expected)"); mErrorCount++; break; }
+		if (sym2 == 0) { Error("Invalid right parameter"); mErrorCount++; break; }
 		pDataType = sym1->GetDataType();
 		break;
 	case OpKind::eAdd: case OpKind::eSubtract: case OpKind::eMultiply: case OpKind::eDivide:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
 		pDataType = sym1->GetDataType();
-		if (sym2 == 0) { Error("Invalid right parameter"); errorCount++; break; }
+		if (sym2 == 0) { Error("Invalid right parameter"); mErrorCount++; break; }
 		break;
 	case OpKind::eIsEqual: case OpKind::eIsNotEqual: case OpKind::eIsLessEqual: case OpKind::eIsGreaterEqual: case OpKind::eIsLess: case OpKind::eIsGreater:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
 		pDataType = GetDataType(BOOLEAN_NAME);
-		if (sym2 == 0) { Error("Invalid right parameter"); errorCount++; break; }
+		if (sym2 == 0) { Error("Invalid right parameter"); mErrorCount++; break; }
 		break;
 	case OpKind::eIfJump: case OpKind::eIfFalseJump:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
-		if (sym1->GetDataType() != GetDataType(BOOLEAN_NAME)) { Error("AddStatement: invalid condition (type Boolean expected)"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
+		if (sym1->GetDataType() != GetDataType(BOOLEAN_NAME)) { Error("AddStatement: invalid condition (type Boolean expected)"); mErrorCount++; break; }
 		break;
 	case OpKind::eJump:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
-		if (sym1->GetSymbolType() != SymbolType::eLabel) { Error("AddStatement: invalid jump destination (Label expected)"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
+		if (sym1->GetSymbolType() != SymbolType::eLabel) { Error("AddStatement: invalid jump destination (Label expected)"); mErrorCount++; break; }
 		break;
 	case OpKind::ePrint:
-		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
+		if (sym1 == 0) { Error("Invalid left parameter"); mErrorCount++; break; }
 		break;
 	case OpKind::eExit:
-		if (sym1 != 0) { Error("Too many parameters"); errorCount++; break; }
+		if (sym1 != 0) { Error("Too many parameters"); mErrorCount++; break; }
 		break;
 	default:
 		Error("AddStatement: unknown operation kind");
 		break;
 	}
 
-	if (errorCount > 0)
+	if (mErrorCount > 0)
 	{
 		return 0;
 	}

@@ -160,4 +160,9 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Errors.miec">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
