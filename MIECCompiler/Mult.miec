@@ -1,0 +1,10 @@
+PROGRAM Mult
+	BEGIN_VAR
+		a: Integer;
+		b: Integer;
+		c: Integer;
+	END_VAR
+BEGIN
+	a := 5 * 3;
+	print(a);
+END

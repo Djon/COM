@@ -4,20 +4,23 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "Parser.h"
 #include "Scanner.h"
 #include <sys/timeb.h>
 #include <wchar.h>
 
-#include "Type.h"
-#include "BaseType.h"
-#include "Symbol.h"
-#include "VarSymbol.h"
-#include "ConstIntSymbol.h"
-#include "TypeSymbol.h"
-#include "SymbolTable.h"
-#include "SymbolFactory.h"
+#include "CodeGenerator.h"
+
+//#include "Type.h"
+//#include "BaseType.h"
+//#include "Symbol.h"
+//#include "VarSymbol.h"
+//#include "ConstIntSymbol.h"
+//#include "TypeSymbol.h"
+//#include "SymbolTable.h"
+//#include "SymbolFactory.h"
 
 using namespace std;
 
@@ -34,29 +37,44 @@ int main(int argc, char *argv[]) {
 			scanner = new MIEC::Scanner(fileName);
 			parser = new MIEC::Parser(scanner);
 			
-			//parser->gen = new MIEC::CodeGenerator();
+			
+			std::wstring wname = std::wstring(fileName);
+			std::string name = std::string(wname.begin(), wname.end());
+			cout << "Parsing " << name << " now..." << endl;
 			parser->Parse();
-			/*if (parser->errors->count == 0) {
-			parser->gen->Decode();
-			parser->gen->Interpret("Taste.IN");
-			}*/
 
-			cout << "Parser Errors: " << parser->errors->count << endl;
+			// output error count
+			size_t const parserErrors = parser->errors->count;
+			size_t const semanticErrors = parser->mDACGen.GetErrorCount();
+			cout << "Parser Errors: " << parserErrors << endl;
+			cout << "Sematic Errors: " << semanticErrors << endl;
 
+			// write to log file
 			myfile << "MiniIEC.exe" << endl << argv[i] << ": ";
-			if (parser->errors->count == 0) {
+			if (parserErrors == 0) {
 				myfile << "OK" << endl;
 			}
 			else {
-				myfile << "FAILED: " << parser->errors->count << " error(s) detected" << endl;
+				myfile << "FAILED: " << parserErrors << " error(s) detected" << endl;
 			}
 			
+			
 #ifdef _DEBUG
+			// output symbol table and DAC entries
 			std::cout << std::endl << "SymbolTable:" << std::endl;
 			parser->mDACGen.PrintSymTab();
 			std::cout << std::endl << "DACEntries: " << std::endl;
 			parser->mDACGen.PrintDACList();
+			cout << endl;
 #endif
+
+			// generate machine code
+			if (parserErrors == 0 && semanticErrors == 0) {
+				MIEC::CodeGenerator codeGenerator(parser->mDACGen.GetDACList());
+				coco_string_merge(fileName, L".iex");
+				codeGenerator.GenerateCode(fileName);
+			}
+
 			coco_string_delete(fileName);
 			delete parser;
 			delete scanner;

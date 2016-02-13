@@ -60,6 +60,15 @@
     <ClCompile Include="MiniIEC\Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MiniIEC\CodeGenProl16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniIEC\CodeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniIEC\RegisterAdmin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniIEC\Parser.h">
@@ -107,18 +116,42 @@
     <ClInclude Include="MiniIEC\Label.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MiniIEC\CodeGenProl16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\GlobalDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\CodeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniIEC\RegisterAdmin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Hello.miec">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Test1.miec">
+    <None Include="Mult.miec">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="MiniIEC\Branch.miec">
+    <None Include="Division.miec">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="MiniIEC\Loop.miec">
+    <None Include="Addition.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Subtraction.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Test.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Branch.miec">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Loop.miec">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

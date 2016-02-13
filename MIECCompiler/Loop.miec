@@ -11,5 +11,4 @@ BEGIN
 		a := a + 1;
 		print(a);
 	END
-	
 END

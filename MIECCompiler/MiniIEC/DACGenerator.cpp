@@ -62,7 +62,11 @@ DACEntry * DACGenerator::AddStatement(OpKind opKind, Symbol * sym1, Symbol * sym
 		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
 		if (sym1->GetSymbolType() != SymbolType::eLabel) { Error("AddStatement: invalid jump destination (Label expected)"); errorCount++; break; }
 		break;
+	case OpKind::ePrint:
+		if (sym1 == 0) { Error("Invalid left parameter"); errorCount++; break; }
+		break;
 	case OpKind::eExit:
+		if (sym1 != 0) { Error("Too many parameters"); errorCount++; break; }
 		break;
 	default:
 		Error("AddStatement: unknown operation kind");
@@ -100,6 +104,10 @@ void DACGenerator::SetPosition(size_t const line)
 void DACGenerator::Error(std::string msg)
 {
 	std::cout << "-- " << "Line " << mLine << ": " << msg << std::endl;	
+}
+
+size_t DACGenerator::GetErrorCount() {
+	return mErrorCount;
 }
 
 const std::list<DACEntry*>& DACGenerator::GetDACList() const

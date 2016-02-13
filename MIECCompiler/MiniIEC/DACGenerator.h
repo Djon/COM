@@ -27,6 +27,7 @@ public:
 	void PrintSymTab() const;
 
 	void DACGenerator::Error(std::string msg);
+	size_t GetErrorCount();
 	void SetPosition(size_t const line);
 
 	Symbol * AddSymbol(Symbol * pSymbol);

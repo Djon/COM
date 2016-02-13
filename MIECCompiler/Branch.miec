@@ -1,0 +1,16 @@
+PROGRAM BranchTest
+BEGIN_VAR
+	a: Integer;
+	b: Integer;
+END_VAR
+BEGIN
+	a := 0;
+	b := 10;
+	
+	IF a = b THEN a:=1; ELSE a:=0; END 
+	IF a != b THEN a:=1; ELSE a:=0; END 
+	IF a < b THEN a:=1; ELSE a:=0; END 
+	IF a > b THEN a:=1; ELSE a:=0; END 
+	IF a <= b THEN a:=1; ELSE a:=0; END 
+	IF a >= b THEN a:=1; ELSE a:=0; END 
+END
