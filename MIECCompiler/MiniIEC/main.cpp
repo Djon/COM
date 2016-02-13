@@ -13,19 +13,9 @@
 
 #include "CodeGenerator.h"
 
-//#include "Type.h"
-//#include "BaseType.h"
-//#include "Symbol.h"
-//#include "VarSymbol.h"
-//#include "ConstIntSymbol.h"
-//#include "TypeSymbol.h"
-//#include "SymbolTable.h"
-//#include "SymbolFactory.h"
-
 using namespace std;
 
 int main(int argc, char *argv[]) {
-
 	if (argc >= 2) {
 		MIEC::Scanner *scanner = 0;
 		MIEC::Parser *parser = 0;

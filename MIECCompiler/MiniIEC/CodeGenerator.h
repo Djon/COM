@@ -22,7 +22,6 @@ namespace MIEC {
 		CodeGenerator(const CodeGenerator&);
 		CodeGenerator& operator= (const CodeGenerator&);
 
-		//typedef std::list<std::pair<WORD, DACEntry const * > > TUnresolvedJumps;
 		typedef std::map<Label*, WORD> TUnresolvedJumps;
 		typedef BYTE tRegNr;
 

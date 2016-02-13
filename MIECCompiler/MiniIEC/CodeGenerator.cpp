@@ -252,9 +252,6 @@ namespace MIEC {
 		// store the source to the destination address
 		mpGenProl16->Store(regA, regB);
 
-		// regA contains result of assignment -> assign to DAC-symbol
-		//mpRegAdmin->AssignRegister(regA, pDACEntry);
-
 		// free all other registers
 		mpRegAdmin->FreeRegister(regA);
 		mpRegAdmin->FreeRegister(regB);

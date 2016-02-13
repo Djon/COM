@@ -1108,3 +1108,39 @@ MiniIEC.exe
 Test.miec: OK
 MiniIEC.exe
 Errors.miec: FAILED: 4 error(s) detected
+MiniIEC.exe
+Mult.miec: OK
+MiniIEC.exe
+Division.miec: OK
+MiniIEC.exe
+Addition.miec: OK
+MiniIEC.exe
+Subtraction.miec: OK
+MiniIEC.exe
+Loop.miec: OK
+MiniIEC.exe
+Hello.miec: OK
+MiniIEC.exe
+Branch.miec: OK
+MiniIEC.exe
+Test.miec: OK
+MiniIEC.exe
+Errors.miec: FAILED: 4 error(s) detected
+MiniIEC.exe
+Mult.miec: OK
+MiniIEC.exe
+Division.miec: OK
+MiniIEC.exe
+Addition.miec: OK
+MiniIEC.exe
+Subtraction.miec: OK
+MiniIEC.exe
+Loop.miec: OK
+MiniIEC.exe
+Hello.miec: OK
+MiniIEC.exe
+Branch.miec: OK
+MiniIEC.exe
+Test.miec: OK
+MiniIEC.exe
+Errors.miec: FAILED: 4 error(s) detected

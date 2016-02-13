@@ -30,6 +30,7 @@ Symbol * SymbolTable::AddTypeSymbol(BaseTypeName baseTypeName) {
 	DataType * dataType = 0;
 	TypeSymbol * symbol = 0;
 
+	// add symbol to table, according to datatype
 	switch (baseTypeName)
 	{
 		case INT:
@@ -95,6 +96,7 @@ DataType* const SymbolTable::GetDataType(wchar_t* const pName)
 		return 0;
 	}
 
+	// return the datatype if there were no errors
 	return pSymbol->GetDataType();
 }
 

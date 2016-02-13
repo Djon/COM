@@ -33,8 +33,6 @@ public:
 #endif
 
 private:
-
-	
 	typedef std::pair<wchar_t*, Symbol*> tSymbolEntry;
 	std::map<wchar_t*, Symbol*, NameCompare> mSymbols;
 };

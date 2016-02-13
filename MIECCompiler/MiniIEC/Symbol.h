@@ -2,7 +2,6 @@
 #define SYMBOL_H
 
 #include "Object.h"
-//#include "Type.h"
 
 class DataType;
 

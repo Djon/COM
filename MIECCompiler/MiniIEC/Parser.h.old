@@ -4,7 +4,6 @@
 #define COCO_PARSER_H__
 
 #include "DACGenerator.h"
-#include "SymbolFactory.h"
 #include <wchar.h>
 
 
