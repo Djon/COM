@@ -83,6 +83,7 @@ void Parser::VarDeclList() {
 		while (la->kind == 1 || la->kind == 2) {
 			VarDecl(addr);
 		}
+		while (!(la->kind == 0 || la->kind == 7)) {SynErr(33); Get();}
 		Expect(7);
 }
 
@@ -108,7 +109,8 @@ void Parser::Ident(wchar_t* &name) {
 			name =  t->val; 
 		} else if (la->kind == 2) {
 			Get();
-		} else SynErr(33);
+			Error(L"Invalid Identifier"); 
+		} else SynErr(34);
 		mDACGen.SetPosition(t->line); 
 }
 
@@ -122,12 +124,13 @@ void Parser::Type(DataType* &pType) {
 		} else if (StartOf(2)) {
 			Get();
 			Error(L"Unknown Type Symbol"); 
-		} else SynErr(34);
+		} else SynErr(35);
 		mDACGen.SetPosition(t->line); 
 }
 
 void Parser::Stat() {
 		Symbol* pSym = 0; 
+		while (!(StartOf(3))) {SynErr(36); Get();}
 		if (la->kind == 1 || la->kind == 2) {
 			Assignment(pSym);
 		} else if (la->kind == 11) {
@@ -136,7 +139,7 @@ void Parser::Stat() {
 			Loop(pSym);
 		} else if (la->kind == 16) {
 			Print(pSym);
-		} else SynErr(35);
+		} else SynErr(37);
 }
 
 void Parser::Assignment(Symbol* &pSym) {
@@ -145,7 +148,7 @@ void Parser::Assignment(Symbol* &pSym) {
 		pSym = mDACGen.FindSymbol(pName); 
 		Expect(10);
 		Expr(pSym1);
-		while (!(la->kind == 0 || la->kind == 9)) {SynErr(36); Get();}
+		while (!(la->kind == 0 || la->kind == 9)) {SynErr(38); Get();}
 		Expect(9);
 		pSym = mDACGen.AddStatement(OpKind::eAssign, pSym, pSym1); 
 }
@@ -163,7 +166,7 @@ void Parser::Branch(Symbol* &pSym) {
 			Statements();
 			mDACGen.RegisterLabel(lbNext); 
 		}
-		while (!(la->kind == 0 || la->kind == 5)) {SynErr(37); Get();}
+		while (!(la->kind == 0 || la->kind == 5)) {SynErr(39); Get();}
 		Expect(5);
 		mDACGen.RegisterLabel(lbElse); 
 }
@@ -177,7 +180,7 @@ void Parser::Loop(Symbol* &pSym) {
 		mDACGen.AddStatement(OpKind::eIfFalseJump, pSym, lbNext); 
 		Statements();
 		mDACGen.AddStatement(OpKind::eJump, lbCondition, 0); 
-		while (!(la->kind == 0 || la->kind == 5)) {SynErr(38); Get();}
+		while (!(la->kind == 0 || la->kind == 5)) {SynErr(40); Get();}
 		Expect(5);
 		mDACGen.RegisterLabel(lbNext); 
 }
@@ -186,7 +189,7 @@ void Parser::Print(Symbol* &pSym) {
 		Expect(16);
 		Expect(17);
 		Expr(pSym);
-		while (!(la->kind == 0 || la->kind == 18)) {SynErr(39); Get();}
+		while (!(la->kind == 0 || la->kind == 18)) {SynErr(41); Get();}
 		Expect(18);
 		Expect(9);
 		pSym = mDACGen.AddStatement(OpKind::ePrint, pSym, 0); 
@@ -248,7 +251,7 @@ void Parser::Relop(OpKind &op) {
 			op = OpKind::eIsGreater; 
 			break;
 		}
-		default: SynErr(40); break;
+		default: SynErr(42); break;
 		}
 }
 
@@ -278,9 +281,9 @@ void Parser::Fact(Symbol* &pSym) {
 		} else if (la->kind == 17) {
 			Get();
 			Expr(pSym);
-			while (!(la->kind == 0 || la->kind == 18)) {SynErr(41); Get();}
+			while (!(la->kind == 0 || la->kind == 18)) {SynErr(43); Get();}
 			Expect(18);
-		} else SynErr(42);
+		} else SynErr(44);
 		mDACGen.SetPosition(t->line); 
 }
 
@@ -311,10 +314,11 @@ bool Parser::StartOf(int s) {
 	const bool T = true;
 	const bool x = false;
 
-	static bool set[3][33] = {
-		{T,x,x,x, x,T,x,x, x,T,x,x, x,x,x,x, x,x,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x},
+	static bool set[4][33] = {
+		{T,T,T,x, x,T,x,T, x,T,x,T, x,x,T,x, T,x,T,x, x,x,x,x, x,x,x,x, x,x,x,x, x},
 		{x,T,T,x, x,x,x,x, x,x,x,T, x,x,T,x, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x},
-		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,x,x,T, x}
+		{x,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,T,T,T, T,x,x,T, x},
+		{T,T,T,x, x,x,x,x, x,x,x,T, x,x,T,x, T,x,x,x, x,x,x,x, x,x,x,x, x,x,x,x, x}
 	};
 
 
@@ -367,16 +371,18 @@ void Errors::SynErr(int line, int col, int n) {
 			case 30: s = coco_string_create(L"\"Boolean\" expected"); break;
 			case 31: s = coco_string_create(L"??? expected"); break;
 			case 32: s = coco_string_create(L"this symbol not expected in MIEC"); break;
-			case 33: s = coco_string_create(L"invalid Ident"); break;
-			case 34: s = coco_string_create(L"invalid Type"); break;
-			case 35: s = coco_string_create(L"invalid Stat"); break;
-			case 36: s = coco_string_create(L"this symbol not expected in Assignment"); break;
-			case 37: s = coco_string_create(L"this symbol not expected in Branch"); break;
-			case 38: s = coco_string_create(L"this symbol not expected in Loop"); break;
-			case 39: s = coco_string_create(L"this symbol not expected in Print"); break;
-			case 40: s = coco_string_create(L"invalid Relop"); break;
-			case 41: s = coco_string_create(L"this symbol not expected in Fact"); break;
-			case 42: s = coco_string_create(L"invalid Fact"); break;
+			case 33: s = coco_string_create(L"this symbol not expected in VarDeclList"); break;
+			case 34: s = coco_string_create(L"invalid Ident"); break;
+			case 35: s = coco_string_create(L"invalid Type"); break;
+			case 36: s = coco_string_create(L"this symbol not expected in Stat"); break;
+			case 37: s = coco_string_create(L"invalid Stat"); break;
+			case 38: s = coco_string_create(L"this symbol not expected in Assignment"); break;
+			case 39: s = coco_string_create(L"this symbol not expected in Branch"); break;
+			case 40: s = coco_string_create(L"this symbol not expected in Loop"); break;
+			case 41: s = coco_string_create(L"this symbol not expected in Print"); break;
+			case 42: s = coco_string_create(L"invalid Relop"); break;
+			case 43: s = coco_string_create(L"this symbol not expected in Fact"); break;
+			case 44: s = coco_string_create(L"invalid Fact"); break;
 
 		default:
 		{

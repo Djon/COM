@@ -84,13 +84,15 @@ DACEntry * DACGenerator::AddStatement(OpKind opKind, Symbol * sym1, Symbol * sym
 	wchar_t* pName = new wchar_t[strLength];
 	swprintf(pName, strLength, L"%s%d", "t", mTempVarCount++);
 
-	DACEntry * dacEntry = new DACEntry(opKind, sym1, sym2,pDataType,pName, mCurrentLabel);
+	DACEntry * dacEntry = new DACEntry(opKind, sym1, sym2, pDataType, pName, mCurrentLabel);
 	// unregister label
 	mCurrentLabel = 0;
 	// add to dac entry list
 	mDACEntries.push_back(dacEntry);
 	// add to symbol table
 	AddSymbol(dacEntry);
+
+	coco_string_delete(pName);
 
 	return dacEntry;
 }
@@ -139,6 +141,8 @@ Label* const DACGenerator::CreateLabel()
 	// add label to symbols
 	mSymbolTable.Add(pLabel);
 	
+	coco_string_delete(pName);
+
 	return pLabel;
 }
 
@@ -177,6 +181,7 @@ Symbol * DACGenerator::AddSymbol(Symbol * pSymbol)
 			std::string name = std::string(wname.begin(), wname.end());
 			Error("Symbol " + name + " already defined");
 		}
+		delete pSymbol; pSymbol = result;
 	}
 	else
 	{

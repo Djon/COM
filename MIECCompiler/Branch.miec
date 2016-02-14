@@ -7,10 +7,10 @@ BEGIN
 	a := 0;
 	b := 10;
 	
-	IF a = b THEN a:=1; ELSE a:=0; END 
-	IF a != b THEN a:=1; ELSE a:=0; END 
-	IF a < b THEN a:=1; ELSE a:=0; END 
-	IF a > b THEN a:=1; ELSE a:=0; END 
-	IF a <= b THEN a:=1; ELSE a:=0; END 
-	IF a >= b THEN a:=1; ELSE a:=0; END 
+	IF a = b THEN a:=1; ELSE a:=2; END 
+	IF a != b THEN a:=3; ELSE a:=4; END 
+	IF a < b THEN a:=5; ELSE a:=6; END 
+	IF a > b THEN a:=7; ELSE a:=8; END 
+	IF a <= b THEN a:=9; ELSE a:=10; END 
+	IF a >= b THEN a:=11; ELSE a:=12; END 
 END

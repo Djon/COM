@@ -40,7 +40,7 @@ VarDeclList = "BEGIN_VAR"						(. size_t addr = 0; .)
 		   VarDecl<addr>
 		 { VarDecl<addr>
 		 } 
-		   "END_VAR"
+		   SYNC "END_VAR"
 		 .
 
 VarDecl<size_t &addr>					(. wchar_t* name = 0; DataType * pType = 0; .)
@@ -53,7 +53,8 @@ VarDecl<size_t &addr>					(. wchar_t* name = 0; DataType * pType = 0; .)
 
 Statements = Stat {Stat} .
 Stat									(. Symbol* pSym = 0; .)
-= (
+= SYNC 
+(
 	Assignment<pSym> |
 	Branch<pSym> |
 	Loop<pSym> |
@@ -151,7 +152,7 @@ Type<DataType* &pType>
 
 Ident<wchar_t* &name>
 	= ( ident			(. name =  t->val; .)
-	| number
+	| number		    (. Error(L"Invalid Identifier"); .)
 	  )					(. mDACGen.SetPosition(t->line); .)		
 	.
 

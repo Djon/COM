@@ -287,6 +287,16 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="b12743b4-fc55-427a-9a90-e47bd44a7229"
+            isSubstitutable="false">
+            <classMoniker
+              Id="bcbc612d-3dd5-465a-9d5c-3f7406469486"
+              LastKnownName="Symbol"
+              LastKnownLocation="Classdiagram.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="6416ebcb-5e4e-4d88-b305-32eede45dd86"

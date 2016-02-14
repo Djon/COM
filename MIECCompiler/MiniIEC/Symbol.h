@@ -11,6 +11,7 @@ class Symbol : public Object {
 
 public:
 	Symbol(SymbolType symbolType, wchar_t* const name, DataType * pType);
+	Symbol::~Symbol();
 
 	wchar_t* GetName();
 	DataType * GetDataType();

@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <assert.h>
 #include "SymbolTable.h"
 #include "BaseType.h"
 #include "Parser.h"
@@ -15,13 +16,18 @@ SymbolTable::~SymbolTable()
 void SymbolTable::Reset() {
 	std::for_each(mSymbols.begin(), mSymbols.end(), [](std::pair<wchar_t*, Symbol*> pair)
 	{
-		if (pair.first == INT_NAME) {
-			DataType * dataType = pair.second->GetDataType();
-			if (dataType != nullptr) {
-				delete dataType; dataType = nullptr;
+		if (pair.second != nullptr) {
+			// free the basetypes
+			if (pair.second->GetSymbolType() == SymbolType::eType) {
+				DataType * dataType = pair.second->GetDataType();
+				if (dataType != nullptr) {
+					delete dataType; dataType = nullptr;
+				}
 			}
+			
+			// free the symbol
+			delete pair.second; pair.second = nullptr;
 		}
-		delete pair.second; pair.second = 0;
 	});
 	mSymbols.clear();
 }
