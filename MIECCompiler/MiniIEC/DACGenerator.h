@@ -23,8 +23,11 @@ public:
 	Label* const RegisterLabel(Label * pLabel);
 
 	const std::list<DACEntry*>& GetDACList() const;
+
+#ifdef _DEBUG
 	void PrintDACList() const;
 	void PrintSymTab() const;
+#endif
 
 	void DACGenerator::Error(std::string msg);
 	size_t GetErrorCount();

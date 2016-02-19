@@ -11,6 +11,7 @@ DACEntry::DACEntry(OpKind opKind, Symbol * sym1, Symbol * sym2, DataType * dataT
 	mArg2 = sym2;
 }
 
+#ifdef _DEBUG
 void DACEntry::Print()
 {
 	std::string label = "    ";
@@ -105,6 +106,7 @@ void DACEntry::Print()
 
 	std::cout << std::endl;
 }
+#endif
 
 Label* const DACEntry::GetLabel() const
 {

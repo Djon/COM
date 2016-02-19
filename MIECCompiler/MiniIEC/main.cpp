@@ -1,6 +1,6 @@
-#ifdef _DEBUG
-#include <vld.h>
-#endif
+//#ifdef _DEBUG
+//#include <vld.h>
+//#endif
 
 #include <iostream>
 #include <fstream>

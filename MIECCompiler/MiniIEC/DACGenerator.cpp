@@ -116,6 +116,7 @@ const std::list<DACEntry*>& DACGenerator::GetDACList() const
 	return mDACEntries;
 }
 
+#ifdef _DEBUG
 void DACGenerator::PrintDACList() const
 {
 	std::list<DACEntry*>::const_iterator itor = mDACEntries.begin();
@@ -128,6 +129,7 @@ void DACGenerator::PrintSymTab() const
 {
 	mSymbolTable.Print();
 }
+#endif
 
 Label* const DACGenerator::CreateLabel()
 {
